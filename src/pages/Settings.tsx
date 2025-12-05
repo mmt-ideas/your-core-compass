@@ -1,20 +1,24 @@
 import { useState } from "react";
-import { Trash2, AlertTriangle, Moon, Sun, Type, Zap, ZapOff } from "lucide-react";
+import { Trash2, AlertTriangle, Moon, Sun, Type, Zap, ZapOff, Sparkles, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+import { Input } from "@/components/ui/input";
 import { useLocalStorage, STORAGE_KEYS, AppSettings, defaultSettings } from "@/hooks/useLocalStorage";
 import { cn } from "@/lib/utils";
 
 const Settings = () => {
   const [settings, setSettings] = useLocalStorage<AppSettings>(STORAGE_KEYS.SETTINGS, defaultSettings);
+  const [apiKey, setApiKey] = useLocalStorage<string>(STORAGE_KEYS.OPENAI_API_KEY, "");
   const [, , removeCoreValues] = useLocalStorage(STORAGE_KEYS.CORE_VALUES, []);
   const [, , removeValuesSorting] = useLocalStorage(STORAGE_KEYS.VALUES_SORTING, {});
   const [, , removeDecisionReflections] = useLocalStorage(STORAGE_KEYS.DECISION_REFLECTIONS, []);
   const [, , removeMicroReflections] = useLocalStorage(STORAGE_KEYS.MICRO_REFLECTIONS, []);
   const [, , removeCustomValues] = useLocalStorage(STORAGE_KEYS.CUSTOM_VALUES, []);
   const [, , removeOnboarding] = useLocalStorage(STORAGE_KEYS.ONBOARDING_COMPLETE, false);
-  
+
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [showApiKey, setShowApiKey] = useState(false);
+  const [tempApiKey, setTempApiKey] = useState(apiKey);
 
   const handleSettingChange = <K extends keyof AppSettings>(key: K, value: AppSettings[K]) => {
     setSettings({ ...settings, [key]: value });
@@ -59,6 +63,91 @@ const Settings = () => {
       </header>
 
       <div className="space-y-8">
+        {/* AI Features Section */}
+        <section aria-labelledby="ai-heading" className="space-y-6">
+          <h2 id="ai-heading" className="text-lg font-heading font-bold border-b border-border pb-2">
+            AI-Powered Reflections
+          </h2>
+
+          {/* AI Reflections Toggle */}
+          <div className="calm-card flex items-start justify-between gap-4">
+            <div className="flex items-start gap-3">
+              <Sparkles className="h-5 w-5 text-muted-foreground mt-0.5" aria-hidden="true" />
+              <div>
+                <label htmlFor="ai-reflections" className="font-medium block">
+                  Enable AI reflections
+                </label>
+                <p className="text-sm text-muted-foreground">
+                  Get personalized reflection questions in Decision Alignment using ChatGPT.
+                </p>
+              </div>
+            </div>
+            <Switch
+              id="ai-reflections"
+              checked={settings.aiReflectionsEnabled}
+              onCheckedChange={(checked) => handleSettingChange('aiReflectionsEnabled', checked)}
+            />
+          </div>
+
+          {/* OpenAI API Key */}
+          {settings.aiReflectionsEnabled && (
+            <div className="calm-card">
+              <div className="flex items-start gap-3 mb-4">
+                <Sparkles className="h-5 w-5 text-primary mt-0.5" aria-hidden="true" />
+                <div className="flex-1">
+                  <label htmlFor="api-key" className="font-medium block mb-1">
+                    OpenAI API Key
+                  </label>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Your API key is stored locally and never sent anywhere except directly to OpenAI's API.
+                    <a
+                      href="https://platform.openai.com/api-keys"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline ml-1"
+                    >
+                      Get your API key here.
+                    </a>
+                  </p>
+                  <div className="flex gap-2">
+                    <div className="relative flex-1">
+                      <Input
+                        id="api-key"
+                        type={showApiKey ? "text" : "password"}
+                        value={tempApiKey}
+                        onChange={(e) => setTempApiKey(e.target.value)}
+                        placeholder="sk-..."
+                        className="pr-10"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowApiKey(!showApiKey)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                        aria-label={showApiKey ? "Hide API key" : "Show API key"}
+                      >
+                        {showApiKey ? (
+                          <EyeOff className="h-4 w-4" aria-hidden="true" />
+                        ) : (
+                          <Eye className="h-4 w-4" aria-hidden="true" />
+                        )}
+                      </button>
+                    </div>
+                    <Button
+                      onClick={() => setApiKey(tempApiKey)}
+                      disabled={tempApiKey === apiKey}
+                    >
+                      Save
+                    </Button>
+                  </div>
+                  {apiKey && (
+                    <p className="text-xs text-primary mt-2">✓ API key configured</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </section>
+
         {/* Accessibility Section */}
         <section aria-labelledby="accessibility-heading" className="space-y-6">
           <h2 id="accessibility-heading" className="text-lg font-heading font-bold border-b border-border pb-2">

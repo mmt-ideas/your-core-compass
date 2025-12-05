@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { path: "/values", label: "Values Clarity", icon: Compass, description: "Discover your core values" },
-  { path: "/decisions", label: "Decision Checker", icon: CheckCircle, description: "Align decisions with values" },
+  { path: "/decisions", label: "Decision Alignment", icon: CheckCircle, description: "Align decisions with values" },
   { path: "/reflections", label: "Micro Reflections", icon: Brain, description: "Daily reflection practice" },
   { path: "/settings", label: "Settings", icon: Settings, description: "App preferences" },
 ];

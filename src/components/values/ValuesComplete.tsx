@@ -32,8 +32,8 @@ const ValuesComplete = ({ values, onStartOver, onEditManually }: ValuesCompleteP
     <div className="space-y-8 text-center">
       {/* Success message */}
       <div className="py-8">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-sage-light mb-6">
-          <CheckCircle className="h-8 w-8 text-sage" aria-hidden="true" />
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-6">
+          <CheckCircle className="h-8 w-8 text-primary" aria-hidden="true" />
         </div>
         
         <h2 className="text-2xl font-heading font-bold text-foreground mb-3">
@@ -50,8 +50,8 @@ const ValuesComplete = ({ values, onStartOver, onEditManually }: ValuesCompleteP
         <ol className="space-y-3 text-left">
           {values.map((value, index) => (
             <li key={value.id} className="calm-card flex items-start gap-4">
-              <span 
-                className="flex-shrink-0 w-8 h-8 rounded-full bg-sage-light flex items-center justify-center text-sm font-bold text-sage"
+              <span
+                className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-bold text-primary"
                 aria-hidden="true"
               >
                 {index + 1}
@@ -84,12 +84,12 @@ const ValuesComplete = ({ values, onStartOver, onEditManually }: ValuesCompleteP
             onClick={() => navigate("/decisions")}
             className="calm-card text-left hover:ring-2 hover:ring-primary transition-all group"
           >
-            <CheckCircle className="h-6 w-6 text-slate-blue mb-3" aria-hidden="true" />
+            <CheckCircle className="h-6 w-6 text-primary mb-3" aria-hidden="true" />
             <h4 className="font-medium mb-1 group-hover:text-primary transition-colors">
-              Check a decision
+              Decision Alignment
             </h4>
             <p className="text-sm text-muted-foreground">
-              See how a choice aligns with your values
+              Explore value trade-offs in your choices
             </p>
             <ArrowRight className="h-4 w-4 text-muted-foreground mt-3 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
           </button>
@@ -98,7 +98,7 @@ const ValuesComplete = ({ values, onStartOver, onEditManually }: ValuesCompleteP
             onClick={() => navigate("/reflections")}
             className="calm-card text-left hover:ring-2 hover:ring-primary transition-all group"
           >
-            <Brain className="h-6 w-6 text-lavender mb-3" aria-hidden="true" />
+            <Brain className="h-6 w-6 text-accent mb-3" aria-hidden="true" />
             <h4 className="font-medium mb-1 group-hover:text-primary transition-colors">
               Micro reflection
             </h4>

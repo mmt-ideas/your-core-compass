@@ -121,13 +121,16 @@ export const manualEntryPrompts = [
   "What do you want to be known for?",
 ];
 
-// Decision alignment prompts
+// Decision alignment prompts - focused on integrity and value trade-offs
 export const decisionAlignmentPrompts = [
-  "How does this decision support the values you selected?",
-  "Are there any tensions between this decision and your values?",
-  "What alternatives might better align with your values?",
-  "What would choosing differently mean for these values?",
-  "How will you feel about this decision in a year from now?",
+  "Which of your values does this decision honor or support?",
+  "Which of your values might be compromised or jeopardized by this decision?",
+  "What are the specific trade-offs you're making between your values?",
+  "If you had to explain this decision to your future self, what would you say?",
+  "What would it look like to honor all your values in this situation?",
+  "What's the cost of not honoring each compromised value?",
+  "Is there a way to modify this decision to better align with your values?",
+  "What matters most to you in this specific situation?",
 ];
 
 // Micro reflection prompts

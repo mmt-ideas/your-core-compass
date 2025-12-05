@@ -13,6 +13,7 @@ interface ValuesSortingStepProps {
   onCustomValuesChange: (values: StoredValue[]) => void;
   onComplete: () => void;
   onSkip: () => void;
+  columns?: 2 | 3 | 4;
 }
 
 type SortCategory = "veryImportant" | "important" | "notImportantNow";
@@ -36,6 +37,7 @@ const ValuesSortingStep = ({
   onCustomValuesChange,
   onComplete,
   onSkip,
+  columns = 2,
 }: ValuesSortingStepProps) => {
   const [expandedValue, setExpandedValue] = useState<string | null>(null);
   const [showAddCustom, setShowAddCustom] = useState(false);
@@ -100,6 +102,14 @@ const ValuesSortingStep = ({
 
   const canProceed = sorting.veryImportant.length > 0;
 
+  // Generate grid class based on columns
+  const gridClass = cn(
+    "grid gap-3",
+    columns === 2 && "sm:grid-cols-2",
+    columns === 3 && "sm:grid-cols-2 lg:grid-cols-3",
+    columns === 4 && "sm:grid-cols-2 lg:grid-cols-4"
+  );
+
   return (
     <div className="space-y-8">
       {/* Progress indicator */}
@@ -121,7 +131,7 @@ const ValuesSortingStep = ({
           <h2 id="unsorted-heading" className="text-lg font-heading font-bold mb-4">
             Values to sort ({unsortedValues.length})
           </h2>
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className={gridClass}>
             {unsortedValues.map(value => (
               <ValueSortCard
                 key={value.id}
@@ -143,7 +153,7 @@ const ValuesSortingStep = ({
               {categoryLabels[category]} ({sorting[category].length})
             </h2>
             <p className="text-sm text-muted-foreground mb-4">{categoryDescriptions[category]}</p>
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className={gridClass}>
               {sorting[category].map(id => {
                 const value = getValueInfo(id);
                 if (!value) return null;
