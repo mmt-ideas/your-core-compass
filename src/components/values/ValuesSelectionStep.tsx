@@ -10,7 +10,6 @@ interface ValuesSelectionStepProps {
   customValues: StoredValue[];
   onComplete: (selected: StoredValue[]) => void;
   onBack: () => void;
-  columns?: 2 | 3 | 4;
 }
 
 const MAX_VALUES = 10;
@@ -20,7 +19,6 @@ const ValuesSelectionStep = ({
   customValues,
   onComplete,
   onBack,
-  columns = 2,
 }: ValuesSelectionStepProps) => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [showReflectionPrompt, setShowReflectionPrompt] = useState(false);
@@ -58,14 +56,6 @@ const ValuesSelectionStep = ({
 
   const canProceed = selectedIds.length >= 1 && selectedIds.length <= MAX_VALUES;
 
-  // Generate grid class based on columns
-  const gridClass = cn(
-    "grid gap-3",
-    columns === 2 && "sm:grid-cols-2",
-    columns === 3 && "sm:grid-cols-2 lg:grid-cols-3",
-    columns === 4 && "sm:grid-cols-2 lg:grid-cols-4"
-  );
-
   return (
     <div className="space-y-8">
       {/* Counter */}
@@ -91,7 +81,7 @@ const ValuesSelectionStep = ({
           <h2 id="very-important-heading" className="text-lg font-heading font-bold mb-4">
             Your very important values
           </h2>
-          <div className={gridClass}>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {sorting.veryImportant.map(id => {
               const value = getValueInfo(id);
               if (!value) return null;
@@ -115,7 +105,7 @@ const ValuesSelectionStep = ({
           <h2 id="important-heading" className="text-lg font-heading font-bold mb-4">
             Your important values
           </h2>
-          <div className={gridClass}>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {sorting.important.map(id => {
               const value = getValueInfo(id);
               if (!value) return null;

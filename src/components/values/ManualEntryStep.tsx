@@ -242,7 +242,7 @@ const ManualEntryStep = ({ existingValues, onComplete, onBack }: ManualEntryStep
                   className={cn(
                     "px-4 py-2 rounded-full text-sm border transition-all",
                     isAdded
-                      ? "bg-primary/20 border-primary text-primary"
+                      ? "bg-sage/20 border-sage text-sage"
                       : "bg-background border-border hover:border-primary hover:text-primary"
                   )}
                 >

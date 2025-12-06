@@ -76,7 +76,6 @@ export const STORAGE_KEYS = {
   SETTINGS: 'values-compass-settings',
   ONBOARDING_COMPLETE: 'values-compass-onboarded',
   CUSTOM_VALUES: 'values-compass-custom-values',
-  OPENAI_API_KEY: 'values-compass-openai-key',
 } as const;
 
 // Types for stored data
@@ -115,7 +114,6 @@ export interface AppSettings {
   highContrastMode: boolean;
   textSize: 'normal' | 'large' | 'larger';
   reducedMotion: boolean;
-  aiReflectionsEnabled: boolean;
 }
 
 export const defaultSettings: AppSettings = {
@@ -123,5 +121,4 @@ export const defaultSettings: AppSettings = {
   highContrastMode: false,
   textSize: 'normal',
   reducedMotion: false,
-  aiReflectionsEnabled: true,
 };
