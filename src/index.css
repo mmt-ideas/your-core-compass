@@ -20,16 +20,16 @@
     --primary: 220 70% 50%;
     --primary-foreground: 220 25% 97%;
 
-    /* Soft purple secondary */
-    --secondary: 260 30% 92%;
+    /* Soft sage secondary */
+    --secondary: 150 25% 92%;
     --secondary-foreground: 230 20% 20%;
 
-    --muted: 220 20% 94%;
-    --muted-foreground: 230 15% 50%;
+    --muted: 160 15% 94%;
+    --muted-foreground: 200 15% 45%;
 
-    /* Purple accent */
-    --accent: 270 50% 60%;
-    --accent-foreground: 220 25% 97%;
+    /* Muted teal accent */
+    --accent: 168 45% 42%;
+    --accent-foreground: 160 25% 97%;
 
     --destructive: 0 50% 50%;
     --destructive-foreground: 220 25% 97%;
@@ -40,20 +40,20 @@
 
     --radius: 0.75rem;
 
-    /* Custom blue/purple tokens */
-    --sage: 220 70% 50%;
-    --sage-light: 220 60% 90%;
-    --sand: 260 40% 88%;
-    --sand-warm: 260 45% 82%;
-    --slate-blue: 230 60% 55%;
-    --slate-blue-light: 230 50% 88%;
-    --charcoal: 230 20% 20%;
-    --off-white: 220 25% 97%;
+    /* Custom blue/green tokens */
+    --sage: 168 45% 42%;
+    --sage-light: 160 35% 90%;
+    --sand: 45 30% 92%;
+    --sand-warm: 45 35% 88%;
+    --slate-blue: 210 50% 50%;
+    --slate-blue-light: 210 40% 90%;
+    --charcoal: 210 25% 18%;
+    --off-white: 160 20% 98%;
 
     /* Accent colors (sparingly) */
-    --lavender: 270 50% 70%;
-    --teal: 200 50% 50%;
-    --terracotta: 15 35% 60%;
+    --teal: 168 45% 42%;
+    --teal-light: 165 40% 85%;
+    --forest: 155 35% 35%;
 
     --font-heading: 'Atkinson Hyperlegible', 'Inter', system-ui, sans-serif;
     --font-body: 'Inter', 'Atkinson Hyperlegible', system-ui, sans-serif;
@@ -93,14 +93,14 @@
     --primary: 220 65% 60%;
     --primary-foreground: 230 25% 12%;
 
-    --secondary: 260 20% 22%;
-    --secondary-foreground: 220 20% 85%;
+    --secondary: 160 20% 18%;
+    --secondary-foreground: 160 20% 85%;
 
-    --muted: 230 20% 20%;
-    --muted-foreground: 220 15% 60%;
+    --muted: 200 20% 18%;
+    --muted-foreground: 180 15% 55%;
 
-    --accent: 270 45% 65%;
-    --accent-foreground: 230 25% 12%;
+    --accent: 168 40% 50%;
+    --accent-foreground: 160 25% 10%;
 
     --destructive: 0 45% 45%;
     --destructive-foreground: 220 20% 90%;
@@ -109,12 +109,12 @@
     --input: 230 20% 25%;
     --ring: 220 65% 60%;
 
-    --sage: 220 65% 60%;
-    --sage-light: 220 30% 30%;
-    --sand: 260 25% 30%;
-    --sand-warm: 260 30% 35%;
-    --slate-blue: 230 50% 60%;
-    --slate-blue-light: 230 30% 30%;
+    --sage: 168 40% 50%;
+    --sage-light: 160 25% 25%;
+    --sand: 45 20% 25%;
+    --sand-warm: 45 25% 30%;
+    --slate-blue: 210 45% 55%;
+    --slate-blue-light: 210 25% 25%;
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
