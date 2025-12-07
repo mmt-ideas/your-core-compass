@@ -52,7 +52,7 @@ const Settings = () => {
   ];
 
   return (
-    <div className="max-w-xl mx-auto animate-fade-in">
+    <div className="animate-fade-in">
       <header className="text-center mb-10">
         <h1 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-3">
           Settings

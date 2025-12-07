@@ -74,7 +74,7 @@ const DecisionChecker = () => {
   // Check if values are set up
   if (coreValues.length === 0) {
     return (
-      <div className="max-w-xl mx-auto text-center py-12 animate-fade-in">
+      <div className="text-center py-12 animate-fade-in">
         <AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" aria-hidden="true" />
         <h1 className="text-2xl font-heading font-bold mb-4">Set up your values first</h1>
         <p className="text-muted-foreground mb-6">
@@ -218,7 +218,7 @@ const DecisionChecker = () => {
   const allAIQuestionsAnswered = answeredAIQuestions === aiQuestions.length && aiQuestions.length > 0;
 
   return (
-    <div className="max-w-2xl mx-auto animate-fade-in">
+    <div className="animate-fade-in">
       <header className="text-center mb-10">
         <h1 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-3">
           Decision Alignment
