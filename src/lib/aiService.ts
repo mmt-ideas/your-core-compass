@@ -1,4 +1,9 @@
 import { StoredValue } from "@/hooks/useLocalStorage";
+import { RateLimiter, sanitizeInput, INPUT_LIMITS } from "./security";
+
+// Rate limiter for AI API calls - max 10 calls per minute, min 2 seconds between calls
+const questionRateLimiter = new RateLimiter(2000, 10);
+const summaryRateLimiter = new RateLimiter(2000, 10);
 
 export interface AIQuestionResponse {
   questions: string[];
@@ -12,6 +17,15 @@ export async function generatePersonalizedQuestions(
   jeopardizedValues: StoredValue[],
   previousResponses?: Record<string, string>
 ): Promise<AIQuestionResponse> {
+  // Rate limiting check
+  const rateLimitCheck = questionRateLimiter.canMakeCall();
+  if (!rateLimitCheck.allowed) {
+    return {
+      questions: [],
+      error: rateLimitCheck.error || "Rate limit exceeded",
+    };
+  }
+
   if (!apiKey) {
     return {
       questions: [],
@@ -20,8 +34,11 @@ export async function generatePersonalizedQuestions(
   }
 
   try {
-    const supportedNames = supportedValues.map(v => v.name).join(", ");
-    const jeopardizedNames = jeopardizedValues.map(v => v.name).join(", ");
+    // Sanitize decision input
+    const sanitizedDecision = sanitizeInput(decision, INPUT_LIMITS.DECISION_TEXT);
+
+    const supportedNames = supportedValues.map(v => sanitizeInput(v.name, INPUT_LIMITS.VALUE_NAME)).join(", ");
+    const jeopardizedNames = jeopardizedValues.map(v => sanitizeInput(v.name, INPUT_LIMITS.VALUE_NAME)).join(", ");
 
     let contextAboutPreviousRounds = "";
     if (previousResponses && Object.keys(previousResponses).length > 0) {
@@ -34,7 +51,7 @@ export async function generatePersonalizedQuestions(
 
     const systemPrompt = `You are a thoughtful reflection guide helping someone explore value trade-offs in their decisions. Your role is to ask deep, personalized questions that help them understand what matters most.`;
 
-    const userPrompt = `The person is facing this decision: "${decision}"
+    const userPrompt = `The person is facing this decision: "${sanitizedDecision}"
 
 Values being honored by this decision: ${supportedNames || "None identified"}
 Values at risk with this decision: ${jeopardizedNames || "None identified"}${contextAboutPreviousRounds}
@@ -108,6 +125,15 @@ export async function generateRoundSummary(
   jeopardizedValues: StoredValue[],
   currentRoundAnswers: Record<string, string>
 ): Promise<AISummaryResponse> {
+  // Rate limiting check
+  const rateLimitCheck = summaryRateLimiter.canMakeCall();
+  if (!rateLimitCheck.allowed) {
+    return {
+      summary: "",
+      error: rateLimitCheck.error || "Rate limit exceeded",
+    };
+  }
+
   if (!apiKey) {
     return {
       summary: "",
@@ -116,12 +142,14 @@ export async function generateRoundSummary(
   }
 
   try {
-    const supportedNames = supportedValues.map(v => v.name).join(", ");
-    const jeopardizedNames = jeopardizedValues.map(v => v.name).join(", ");
+    // Sanitize inputs
+    const sanitizedDecision = sanitizeInput(decision, INPUT_LIMITS.DECISION_TEXT);
+    const supportedNames = supportedValues.map(v => sanitizeInput(v.name, INPUT_LIMITS.VALUE_NAME)).join(", ");
+    const jeopardizedNames = jeopardizedValues.map(v => sanitizeInput(v.name, INPUT_LIMITS.VALUE_NAME)).join(", ");
 
     const systemPrompt = `You are a reflective guide helping someone understand their decision-making process. Provide concise, compassionate summaries that help them see patterns in their thinking.`;
 
-    const userPrompt = `Decision: "${decision}"
+    const userPrompt = `Decision: "${sanitizedDecision}"
 Values honored: ${supportedNames || "None"}
 Values at risk: ${jeopardizedNames || "None"}
 

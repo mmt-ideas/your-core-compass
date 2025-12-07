@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, ArrowRight, Check, HelpCircle } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, HelpCircle, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getValueById, valuesReflectionPrompts } from "@/data/values";
 import { StoredValue, ValueSorting } from "@/hooks/useLocalStorage";
@@ -20,11 +20,12 @@ const ValuesSelectionStep = ({
   customValues,
   onComplete,
   onBack,
-  columns = 2,
+  columns = 4,
 }: ValuesSelectionStepProps) => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [showReflectionPrompt, setShowReflectionPrompt] = useState(false);
   const [currentPromptIndex, setCurrentPromptIndex] = useState(0);
+  const [showDescriptions, setShowDescriptions] = useState(false);
 
   // Combine very important and important values for selection
   const candidateIds = [...sorting.veryImportant, ...sorting.important];
@@ -68,21 +69,50 @@ const ValuesSelectionStep = ({
 
   return (
     <div className="space-y-8">
-      {/* Counter */}
-      <div 
-        className="text-center p-4 rounded-lg bg-secondary"
-        role="status"
-        aria-live="polite"
-      >
-        <span className="text-2xl font-heading font-bold text-foreground">
-          {selectedIds.length}
-        </span>
-        <span className="text-muted-foreground"> / {MAX_VALUES} values selected</span>
-        {selectedIds.length >= MAX_VALUES && (
-          <p className="text-sm text-muted-foreground mt-1">
-            Maximum reached. Deselect a value to choose a different one.
-          </p>
-        )}
+      {/* Counter and Controls */}
+      <div className="flex flex-col gap-4">
+        <div
+          className="text-center p-4 rounded-lg bg-secondary"
+          role="status"
+          aria-live="polite"
+        >
+          <span className="text-2xl font-heading font-bold text-foreground">
+            {selectedIds.length}
+          </span>
+          <span className="text-muted-foreground"> / {MAX_VALUES} values selected</span>
+          {selectedIds.length >= MAX_VALUES && (
+            <p className="text-sm text-muted-foreground mt-1">
+              Maximum reached. Deselect a value to choose a different one.
+            </p>
+          )}
+        </div>
+
+        {/* Description Toggle and Save Button */}
+        <div className="flex justify-center gap-3 flex-wrap">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowDescriptions(!showDescriptions)}
+            className="gap-2"
+          >
+            {showDescriptions ? (
+              <>
+                <EyeOff className="h-4 w-4" aria-hidden="true" />
+                Hide descriptions
+              </>
+            ) : (
+              <>
+                <Eye className="h-4 w-4" aria-hidden="true" />
+                Show descriptions
+              </>
+            )}
+          </Button>
+
+          <Button onClick={handleComplete} disabled={!canProceed} size="sm">
+            Save my core values
+            <ArrowRight className="h-4 w-4 ml-2" aria-hidden="true" />
+          </Button>
+        </div>
       </div>
 
       {/* Very Important section */}
@@ -102,6 +132,7 @@ const ValuesSelectionStep = ({
                   isSelected={selectedIds.includes(id)}
                   onToggle={() => handleToggleValue(id)}
                   disabled={!selectedIds.includes(id) && selectedIds.length >= MAX_VALUES}
+                  showDescription={showDescriptions}
                 />
               );
             })}
@@ -126,6 +157,7 @@ const ValuesSelectionStep = ({
                   isSelected={selectedIds.includes(id)}
                   onToggle={() => handleToggleValue(id)}
                   disabled={!selectedIds.includes(id) && selectedIds.length >= MAX_VALUES}
+                  showDescription={showDescriptions}
                 />
               );
             })}
@@ -186,9 +218,10 @@ interface SelectableValueCardProps {
   isSelected: boolean;
   onToggle: () => void;
   disabled: boolean;
+  showDescription?: boolean;
 }
 
-const SelectableValueCard = ({ value, isSelected, onToggle, disabled }: SelectableValueCardProps) => {
+const SelectableValueCard = ({ value, isSelected, onToggle, disabled, showDescription = false }: SelectableValueCardProps) => {
   return (
     <button
       onClick={onToggle}
@@ -204,8 +237,8 @@ const SelectableValueCard = ({ value, isSelected, onToggle, disabled }: Selectab
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1">
           <span className="font-medium block">{value.name}</span>
-          {value.description && (
-            <span className="text-sm text-muted-foreground mt-1 block">
+          {showDescription && value.description && (
+            <span className="text-sm text-muted-foreground mt-1 block leading-relaxed">
               {value.description}
             </span>
           )}

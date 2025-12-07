@@ -21,9 +21,29 @@ const Home = () => {
         </h1>
         
         <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl mx-auto">
-          A gentle space for reflection. Clarify what matters most to you, 
+          A gentle space for reflection. Clarify what matters most to you,
           check your decisions against your values, and build a practice of mindful awareness.
         </p>
+
+        {/* What are Personal Values */}
+        <div className="calm-card text-left mb-12 max-w-xl mx-auto">
+          <h2 className="text-xl font-heading font-bold text-foreground mb-3">
+            What are personal values?
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+            Personal values are the core principles and beliefs that guide how you live your life.
+            They reflect what truly matters to you—like honesty, creativity, family, or freedom—and
+            serve as your internal compass for making decisions and taking action.
+          </p>
+          <h3 className="text-base font-heading font-semibold text-foreground mb-2">
+            Why clarifying values matters
+          </h3>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            When you know your values, you gain clarity about what's important to you. This awareness
+            helps you make decisions that feel authentic, set meaningful goals, navigate difficult
+            situations with confidence, and build a life that truly reflects who you are.
+          </p>
+        </div>
 
         {/* Returning User Options */}
         {hasExistingValues ? (

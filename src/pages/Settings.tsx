@@ -98,6 +98,11 @@ const Settings = () => {
                   <label htmlFor="api-key" className="font-medium block mb-1">
                     OpenAI API Key
                   </label>
+                  <div className="calm-card bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800 mb-3">
+                    <p className="text-xs text-amber-900 dark:text-amber-100">
+                      <strong>Security Note:</strong> Your API key is stored in your browser's local storage. While convenient, this is vulnerable to XSS attacks. Only use this feature on trusted devices and keep your browser updated.
+                    </p>
+                  </div>
                   <p className="text-sm text-muted-foreground mb-3">
                     Your API key is stored locally and never sent anywhere except directly to OpenAI's API.
                     <a

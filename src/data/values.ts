@@ -106,11 +106,12 @@ export const exampleValues = [
 
 // Reflective prompts for values clarity
 export const valuesReflectionPrompts = [
-  "What does this value look like when it shows up in your life?",
-  "When have you felt connected to this value?",
-  "What would be missing if this value were absent?",
-  "How does this value guide your decisions?",
-  "When do you feel most aligned with this value?",
+  "Think about a time when you felt fulfilled at work. Which of your values were met?",
+  "Recall a moment when you felt truly proud of yourself. What values were you honoring?",
+  "When have you felt most authentic and aligned? Which values were present?",
+  "Think of a time when something felt wrong or off. Which of your values might have been compromised?",
+  "What qualities do you admire most in others? Which values do they reflect?",
+  "When do you feel most energized and alive? What values are you expressing?",
 ];
 
 // Reflective prompts for manual entry
