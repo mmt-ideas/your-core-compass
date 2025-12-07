@@ -51,7 +51,7 @@ const Home = () => {
   const hasExistingValues = coreValues.length > 0;
 
   return (
-    <div className="max-w-3xl mx-auto animate-fade-in">
+    <div className="animate-fade-in">
       {/* Hero Section */}
       <header className="py-16 md:py-24">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
